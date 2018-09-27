@@ -592,7 +592,7 @@ TextMesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746290465}
-  m_Text: Choice 1
+  m_Text: <color=#00ffffff>Ch</color>oice 1
   m_OffsetZ: 0
   m_CharacterSize: 0.2
   m_LineSpacing: 1

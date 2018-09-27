@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class InputCheck : MonoBehaviour
@@ -9,18 +10,29 @@ public class InputCheck : MonoBehaviour
 	private string[] choiceObjectsStrings;
 	private int charPos;
 	private string currentString;
+	private string NormalizeString(string input)
+	{
+		string output = input.ToLower();
+		output = Regex.Replace(output, @"\s", ""); // remove spaces
+		return output;
+	}
+
 	private void CheckInput()
 	{
+
 		foreach (char inputChar in Input.inputString) // get input char
 		{
+			bool frameChecked = false;
 			char inputCharLower = char.ToLower(inputChar);
 			for (int i = 0; i < choiceObjectsStrings.Length; i++) // try every choice
 			{
-				if (inputCharLower == choiceObjectsStrings[i].ToLower()[charPos]) // check if the input char == the char at charPos
+				string normalizedString = NormalizeString(choiceObjectsStrings[i]);
+				if (inputCharLower == normalizedString[charPos]) // check if the input char == the char at charPos
 				{
-					print(choiceObjectsStrings[i][charPos]);
-					currentString = currentString + choiceObjectsStrings[i][charPos];
-					if (currentString == choiceObjectsStrings[i])
+					frameChecked = true;
+					print(normalizedString[charPos]);
+					currentString = currentString + normalizedString[charPos];
+					if (currentString == normalizedString)
 					{
 						InputSuccess(i);
 					}
@@ -29,13 +41,9 @@ public class InputCheck : MonoBehaviour
 						charPos++;
 					}
 				}
-				else
+				else if (!frameChecked)
 				{
-					if (inputCharLower!='\0')
-					{
-						WrongInput(inputCharLower);
-					}
-					
+					WrongInput(inputCharLower);
 				}
 			}
 		}
@@ -71,6 +79,6 @@ public class InputCheck : MonoBehaviour
 	private void Update()
 	{
 		CheckInput();
-		print(Input.inputString);
+		//print(Input.inputString);
 	}
 }
