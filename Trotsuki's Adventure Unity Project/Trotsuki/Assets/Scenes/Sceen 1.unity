@@ -152,7 +152,7 @@ TextMesh:
   m_GameObject: {fileID: 234029355}
   m_Text: Choice 3
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
@@ -303,7 +303,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c5f656cac4e49409d5d0ac81db07ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  choiceStrings: []
+  choiceStrings:
+  - We must follow the NEWLINE great revolutionary instructorNEWLINEKarl Marx's teaching
+  - We shall adventure and explore a new approach to socialism
+  - A good cat is a cat that catches rats, regardless of its colour
+  - It is not the right time for revolution
+  displayChoiceStrings: []
+  color: <color=#00ffffff>
 --- !u!4 &633570848
 Transform:
   m_ObjectHideFlags: 0
@@ -360,7 +366,7 @@ TextMesh:
   m_GameObject: {fileID: 977534129}
   m_Text: Choice 4
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
@@ -508,7 +514,7 @@ TextMesh:
   m_GameObject: {fileID: 1365035106}
   m_Text: Choice 2
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
@@ -592,9 +598,9 @@ TextMesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746290465}
-  m_Text: <color=#00ffffff>Ch</color>oice 1
+  m_Text: <color=#00ffffff>C h</color>oice 1
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
