@@ -304,11 +304,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choiceStrings:
-  - We must follow the NEWLINE great revolutionary instructorNEWLINEKarl Marx's teaching
-  - We shall adventure and explore a new approach to socialism
-  - A good cat is a cat that catches rats, regardless of its colour
-  - It is not the right time for revolution
+  - We must follow theNEWLINEgreat revolutionary instructorNEWLINEKarl Marx's teaching
+  - We shall adventure andNEWLINEexplore a new approach to socialism
+  - A good cat is a catNEWLINEthat catches rats, regardless of its colour
+  - It is not theNEWLINEright time for revolution
   displayChoiceStrings: []
+  renderIndexes: 
   color: <color=#00ffffff>
 --- !u!4 &633570848
 Transform:

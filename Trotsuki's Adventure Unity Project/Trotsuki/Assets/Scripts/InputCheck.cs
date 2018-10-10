@@ -10,7 +10,7 @@ public class InputCheck : MonoBehaviour
 	private GameObject[] choiceObjects;
 	//private string[] choiceStrings;
 	private int[] charPos; // in normalized string
-	private int[] renderIndexes; // in original string
+	public int[] renderIndexes; // in original string
 	private string[] currentString;
 	public string color;
 
@@ -34,8 +34,8 @@ public class InputCheck : MonoBehaviour
 	{
 		string output = input;
 		output = output.Replace("NEWLINE", "");// remove NEWLINE
-		output = input.ToLower();
 		output = Regex.Replace(output, @"\s", "");// remove spaces
+		output = output.ToLower();
 		return output;
 	}
 
@@ -48,6 +48,7 @@ public class InputCheck : MonoBehaviour
 			for (int i = 0; i < choiceStrings.Count; i++) // try every choice
 			{
 				string normalizedString = NormalizeString(choiceStrings[i]);
+				print(normalizedString);
 				//print("the inputCharLower is " + inputCharLower + " in the iteration of " + i);
 				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 				{
@@ -64,11 +65,9 @@ public class InputCheck : MonoBehaviour
 					{
 						charPos[i]++;
 						renderIndexes[i]++;
-						print("choice" + i + renderIndexes[i]);
-						if (choiceStrings[i][renderIndexes[i]] == ' ')
-						{
-							renderIndexes[i]++; // add the spaces in the renderIndex
-						}
+						//print("choice" + i + renderIndexes[i]);
+
+
 					}
 				}
 				else if (!frameChecked)
@@ -92,7 +91,7 @@ public class InputCheck : MonoBehaviour
 			currentString[i] = "";
 			choiceObjects[choice].GetComponent<TextMesh>().text = ColorizeChoice(choice);
 		}
-		print("zuccess!");
+		print("kevin is actually bad!");
 	}
 	private void WrongInput(char input)
 	{
@@ -101,7 +100,21 @@ public class InputCheck : MonoBehaviour
 
 	private string ColorizeChoice(int choice)
 	{
-		string output = color + displayChoiceStrings[choice].Replace("NEWLINE", "\n").Insert(renderIndexes[choice], "</color>");
+		string output = displayChoiceStrings[choice];
+		output = output.Replace("NEWLINE", "\n");
+		print(output.Substring(renderIndexes[choice]).IndexOf("\n"));
+		if (renderIndexes[choice] == output.Substring(renderIndexes[choice]).IndexOf("\n") + renderIndexes[choice])
+		{
+			print("hello???????");
+			renderIndexes[choice]++;
+		}
+		if (output[renderIndexes[choice]] == ' ') //
+		{
+			renderIndexes[choice]++; // add the spaces in the renderIndex
+		}
+		output = output.Insert(renderIndexes[choice], "</color>");
+		output = color + output;
+
 		return output;
 	}
 	// Use this for initialization
