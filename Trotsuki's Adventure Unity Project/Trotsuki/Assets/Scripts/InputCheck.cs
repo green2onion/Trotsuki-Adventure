@@ -13,23 +13,9 @@ public class InputCheck : MonoBehaviour
 	public int[] renderIndexes; // in original string
 	private string[] currentString;
 	public string color;
+	private bool isChoiceSelected;
+	private int myChoice;
 
-
-	private void ParseChoices()
-	{
-
-		for (int i = 0; i < choiceStrings.Count; i++)
-		{
-			for (int j = 0; j < choiceStrings[i].Length; j++)
-			{
-				if ((j >= 20) && (j % 20 == 0))
-				{
-					print("triggered");
-					displayChoiceStrings[i].Insert(j, "INSERT");
-				}
-			}
-		}
-	}
 	private string NormalizeString(string input)
 	{
 		string output = input;
@@ -48,9 +34,18 @@ public class InputCheck : MonoBehaviour
 			for (int i = 0; i < choiceStrings.Count; i++) // try every choice
 			{
 				string normalizedString = NormalizeString(choiceStrings[i]);
-				print(normalizedString);
+				//print(normalizedString);
 				//print("the inputCharLower is " + inputCharLower + " in the iteration of " + i);
+
 				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
+				{
+					if (!isChoiceSelected)
+					{
+						myChoice = i;
+						isChoiceSelected = true;
+					}
+				}
+				if (i == myChoice && inputCharLower == normalizedString[charPos[i]])
 				{
 					frameChecked = true; // avoid checking more than one time in the for loop
 
@@ -89,9 +84,10 @@ public class InputCheck : MonoBehaviour
 			renderIndexes[i] = 0;
 			charPos[i] = 0;
 			currentString[i] = "";
-			choiceObjects[choice].GetComponent<TextMesh>().text = ColorizeChoice(choice);
+			choiceObjects[i].GetComponent<TextMesh>().text = ColorizeChoice(i);
 		}
-		print("kevin is actually bad!");
+		isChoiceSelected = false;
+		print("zuccess!");
 	}
 	private void WrongInput(char input)
 	{
@@ -102,10 +98,10 @@ public class InputCheck : MonoBehaviour
 	{
 		string output = displayChoiceStrings[choice];
 		output = output.Replace("NEWLINE", "\n");
-		print(output.Substring(renderIndexes[choice]).IndexOf("\n"));
+		//print(output.Substring(renderIndexes[choice]).IndexOf("\n"));
 		if (renderIndexes[choice] == output.Substring(renderIndexes[choice]).IndexOf("\n") + renderIndexes[choice])
 		{
-			print("hello???????");
+			//print("hello???????");
 			renderIndexes[choice]++;
 		}
 		if (output[renderIndexes[choice]] == ' ') //
