@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class DisplayInput : MonoBehaviour {
+using UnityEngine.UI;
+public class DisplayInput : MonoBehaviour
+{
+	private Text myText;
+	private string myInput;
+	public void DisplayText(string text)
+	{
+		myText.text = text;
+	}
 
 	// Use this for initialization
-	void Start () {
-		
+	private void Start()
+	{
+		myText = gameObject.GetComponent<Text>();
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		
+	private void Update()
+	{
+
 	}
 }

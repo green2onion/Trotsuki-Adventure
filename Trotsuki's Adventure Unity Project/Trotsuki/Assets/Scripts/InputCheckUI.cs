@@ -16,6 +16,7 @@ public class InputCheckUI : MonoBehaviour
 	public string color;
 	private bool isChoiceSelected;
 	private int myChoice;
+	private GameObject inputDisplay;
 
 	private string NormalizeString(string input)
 	{
@@ -35,9 +36,6 @@ public class InputCheckUI : MonoBehaviour
 			for (int i = 0; i < choiceStrings.Count; i++) // try every choice
 			{
 				string normalizedString = NormalizeString(choiceStrings[i]);
-				//print(normalizedString);
-				//print("the inputCharLower is " + inputCharLower + " in the iteration of " + i);
-
 				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 				{
 					if (!isChoiceSelected)
@@ -50,23 +48,17 @@ public class InputCheckUI : MonoBehaviour
 				{
 					if (inputCharLower == normalizedString[charPos[i]])
 					{
-
 						frameChecked = true; // avoid checking more than one time in the for loop
-
 						currentString[i] = currentString[i] + normalizedString[charPos[i]];
-
+						inputDisplay.GetComponent<DisplayInput>().DisplayText(choiceStrings[i].Substring(0, renderIndexes[i] + 1));
 						if (currentString[i] == normalizedString)
 						{
 							InputSuccess(i);
-							//break;
 						}
 						else
 						{
 							charPos[i]++;
 							renderIndexes[i]++;
-							//print("choice" + i + renderIndexes[i]);
-
-
 						}
 					}
 					else if (!frameChecked)
@@ -74,12 +66,8 @@ public class InputCheckUI : MonoBehaviour
 						WrongInput(inputCharLower);
 					}
 				}
-
-				//print("the renderIndex is " + renderIndexes[i] + " in the iteration of " + i);
 				choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
 			}
-
-
 		}
 	}
 	private void InputSuccess(int choice)
@@ -104,10 +92,8 @@ public class InputCheckUI : MonoBehaviour
 	{
 		string output = displayChoiceStrings[choice];
 		output = output.Replace("NEWLINE", "\n");
-		//print(output.Substring(renderIndexes[choice]).IndexOf("\n"));
 		if (renderIndexes[choice] == output.Substring(renderIndexes[choice]).IndexOf("\n") + renderIndexes[choice])
 		{
-			//print("hello???????");
 			renderIndexes[choice]++;
 		}
 		if (output[renderIndexes[choice]] == ' ') //
@@ -127,7 +113,6 @@ public class InputCheckUI : MonoBehaviour
 		charPos = new int[4];
 		currentString = new string[4];
 		displayChoiceStrings = new string[4];
-		//choiceStrings = new string[4];
 		for (int i = 0; i < 4; i++)
 		{
 			choiceObjects[i] = GameObject.FindGameObjectsWithTag("Choice")[i];
@@ -137,7 +122,7 @@ public class InputCheckUI : MonoBehaviour
 			currentString[i] = "";
 			displayChoiceStrings[i] = choiceStrings[i];
 		}
-		//ParseChoices();
+		inputDisplay = GameObject.FindGameObjectWithTag("MyInput");
 	}
 
 	// Update is called once per frame

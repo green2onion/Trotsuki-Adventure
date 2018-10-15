@@ -125,8 +125,8 @@ GameObject:
   - component: {fileID: 64333695}
   - component: {fileID: 64333694}
   m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
+  m_Name: MyInput
+  m_TagString: MyInput
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
