@@ -31,45 +31,53 @@ public class InputCheckUI : MonoBehaviour
 	{
 		foreach (char inputChar in Input.inputString) // get input charz
 		{
-			bool frameChecked = false;
-			char inputCharLower = char.ToLower(inputChar);
-			for (int i = 0; i < choiceStrings.Count; i++) // try every choice
+			if (inputChar!=' ')
 			{
-				string normalizedString = NormalizeString(choiceStrings[i]);
-				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
+				bool frameChecked = false;
+				char inputCharLower = char.ToLower(inputChar);
+				for (int i = 0; i < choiceStrings.Count; i++) // try every choice
 				{
-					if (!isChoiceSelected)
+					string normalizedString = NormalizeString(choiceStrings[i]);
+					if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 					{
-						myChoice = i;
-						isChoiceSelected = true;
-						
-					}
-				}
-				if (i == myChoice)
-				{
-					if (inputCharLower == normalizedString[charPos[i]])
-					{
-						frameChecked = true; // avoid checking more than one time in the for loop
-						currentString[i] = currentString[i] + normalizedString[charPos[i]];
-						
-						if (currentString[i] == normalizedString)
+						if (!isChoiceSelected)
 						{
-							InputSuccess(i);
-						}
-						else
-						{
-							charPos[i]++;
-							renderIndexes[i]++;
+							myChoice = i;
+							isChoiceSelected = true;
+
 						}
 					}
-					else if (!frameChecked)
+					if (i == myChoice)
 					{
-						WrongInput(inputCharLower, renderIndexes[i]);
+						if (inputCharLower == normalizedString[charPos[i]])
+						{
+							frameChecked = true; // avoid checking more than one time in the for loop
+							currentString[i] = currentString[i] + normalizedString[charPos[i]];
+							inputDisplay.GetComponent<DisplayInput>().ReceiveText(displayChoiceStrings[i][renderIndexes[i]]);
+							if (currentString[i] == normalizedString)
+							{
+								InputSuccess(i);
+							}
+							else
+							{
+								charPos[i]++;
+								renderIndexes[i]++;
+							}
+
+
+						}
+						else if (!frameChecked)
+						{
+							WrongInput(inputCharLower, renderIndexes[i]);
+						}
 					}
+					choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
+					//inputDisplay.GetComponent<DisplayInput>().ReceiveText(ShowInput(i));
+
 				}
-				choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
-				inputDisplay.GetComponent<DisplayInput>().ReceiveText(ShowInput(i));
+
 			}
+
 		}
 	}
 	private void InputSuccess(int choice)
@@ -83,12 +91,14 @@ public class InputCheckUI : MonoBehaviour
 			choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
 		}
 		isChoiceSelected = false;
+		inputDisplay.GetComponent<DisplayInput>().InputSuccess();
 		print("zuccess!");
 	}
 	private void WrongInput(char input, int place)
 	{
 		//print("wrong input!" + input + "at " + place);
-		inputDisplay.GetComponent<DisplayInput>().wrongInputsIndexes.Add(place);
+		//inputDisplay.GetComponent<DisplayInput>().wrongInputsIndexes.Add(place);
+		inputDisplay.GetComponent<DisplayInput>().ReceiveText('*');
 	}
 
 	private string ColorizeChoice(int choice)
@@ -102,6 +112,7 @@ public class InputCheckUI : MonoBehaviour
 		if (output[renderIndexes[choice]] == ' ') //
 		{
 			renderIndexes[choice]++; // add the spaces in the renderIndex
+			inputDisplay.GetComponent<DisplayInput>().ReceiveText(' ');
 		}
 		output = output.Insert(renderIndexes[choice], "</color>");
 		output = color + output;

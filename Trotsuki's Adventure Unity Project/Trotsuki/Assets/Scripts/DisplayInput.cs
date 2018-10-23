@@ -9,9 +9,9 @@ public class DisplayInput : MonoBehaviour
 	
 	public List<int> wrongInputsIndexes;
 	int renderIndex;
-	public void ReceiveText(string text)
+	public void ReceiveText(char text)
 	{
-		myInput = text;
+		myInput += text;
 	}
 	private string UpdateString()
 	{
@@ -25,7 +25,10 @@ public class DisplayInput : MonoBehaviour
 		print(displayText);
 		return displayText;
 	}
-
+	public void InputSuccess()
+	{
+		myInput = "";
+	}
 	// Use this for initialization
 	private void Start()
 	{
@@ -36,6 +39,6 @@ public class DisplayInput : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		myText.text = UpdateString();
+		myText.text = myInput;
 	}
 }
