@@ -42,6 +42,7 @@ public class InputCheckUI : MonoBehaviour
 					{
 						myChoice = i;
 						isChoiceSelected = true;
+						
 					}
 				}
 				if (i == myChoice)
@@ -50,7 +51,7 @@ public class InputCheckUI : MonoBehaviour
 					{
 						frameChecked = true; // avoid checking more than one time in the for loop
 						currentString[i] = currentString[i] + normalizedString[charPos[i]];
-						inputDisplay.GetComponent<DisplayInput>().DisplayText(choiceStrings[i].Substring(0, renderIndexes[i] + 1));
+						
 						if (currentString[i] == normalizedString)
 						{
 							InputSuccess(i);
@@ -63,10 +64,11 @@ public class InputCheckUI : MonoBehaviour
 					}
 					else if (!frameChecked)
 					{
-						WrongInput(inputCharLower);
+						WrongInput(inputCharLower, renderIndexes[i]);
 					}
 				}
 				choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
+				inputDisplay.GetComponent<DisplayInput>().ReceiveText(ShowInput(i));
 			}
 		}
 	}
@@ -83,9 +85,10 @@ public class InputCheckUI : MonoBehaviour
 		isChoiceSelected = false;
 		print("zuccess!");
 	}
-	private void WrongInput(char input)
+	private void WrongInput(char input, int place)
 	{
-		print("wrong input!" + input);
+		//print("wrong input!" + input + "at " + place);
+		inputDisplay.GetComponent<DisplayInput>().wrongInputsIndexes.Add(place);
 	}
 
 	private string ColorizeChoice(int choice)
@@ -103,6 +106,13 @@ public class InputCheckUI : MonoBehaviour
 		output = output.Insert(renderIndexes[choice], "</color>");
 		output = color + output;
 
+		return output;
+	}
+	private string ShowInput(int choice)
+	{
+		string output = displayChoiceStrings[choice];
+		output = output.Replace("NEWLINE", "\n");
+		output = output.Substring(0, renderIndexes[choice]);
 		return output;
 	}
 	// Use this for initialization
