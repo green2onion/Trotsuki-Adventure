@@ -5,12 +5,11 @@ using UnityEngine;
 public class Dialogue 
 {
 	public int id;
-	public string dialogueText;
-	public string[] choices;
+	public string[] texts = new string[6];
 
-	public void SetDialogueText(string dialogueText, int index) // normalize the dialogue, 0 = opponent, 1234 = choices
+	public void SetDialogueText(string dialogueText, int index) // normalize the dialogue, 1 = opponent, 2345 = choices
 	{
-		this.dialogueText = dialogueText.Replace("COMMA", ",");
+		texts[index] = dialogueText.Replace("COMMA", ",");
 	}
 
 }

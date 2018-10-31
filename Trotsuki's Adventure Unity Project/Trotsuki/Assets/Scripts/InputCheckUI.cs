@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InputCheckUI : MonoBehaviour
 {
-	public List<string> choiceStrings;
+	public string[] choiceStrings;
 	public string[] displayChoiceStrings;
 	private GameObject[] choiceObjects;
 	//private string[] choiceStrings;
@@ -35,7 +35,7 @@ public class InputCheckUI : MonoBehaviour
 			{
 				bool frameChecked = false;
 				char inputCharLower = char.ToLower(inputChar);
-				for (int i = 0; i < choiceStrings.Count; i++) // try every choice
+				for (int i = 0; i < choiceStrings.Length; i++) // try every choice
 				{
 					string normalizedString = NormalizeString(choiceStrings[i]);
 					if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
@@ -129,6 +129,8 @@ public class InputCheckUI : MonoBehaviour
 	// Use this for initialization
 	private void Start()
 	{
+		choiceStrings = new string[4];
+		
 		choiceObjects = new GameObject[4];
 		renderIndexes = new int[4];
 		charPos = new int[4];
@@ -141,6 +143,7 @@ public class InputCheckUI : MonoBehaviour
 			renderIndexes[i] = 0;
 			charPos[i] = 0;
 			currentString[i] = "";
+			choiceStrings[i] = null;
 			displayChoiceStrings[i] = choiceStrings[i];
 		}
 		inputDisplay = GameObject.FindGameObjectWithTag("MyInput");
@@ -149,6 +152,11 @@ public class InputCheckUI : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		for (int i = 0; i < 4; i++)
+		{
+			displayChoiceStrings[i] = choiceStrings[i];
+
+		}
 		CheckInput();
 		//print(Input.inputString);
 	}

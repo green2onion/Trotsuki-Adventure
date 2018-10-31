@@ -886,7 +886,6 @@ GameObject:
   - component: {fileID: 1511879238}
   - component: {fileID: 1511879237}
   - component: {fileID: 1511879236}
-  - component: {fileID: 1511879240}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -975,17 +974,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1511879240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1511879235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a9337104f4ef0f40afa971907e766b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1746290465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1069,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1889037671}
   - component: {fileID: 1889037672}
+  - component: {fileID: 1889037674}
+  - component: {fileID: 1889037673}
   m_Layer: 0
   m_Name: ChoicesManagerUI
   m_TagString: Untagged
@@ -1112,14 +1102,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddb473d01ce49f499fbc64b71c9dbd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  choiceStrings:
-  - We must follow the great revolutionary instructor Karl Marx's teaching
-  - We shall adventure and explore a new approach to socialism
-  - A good cat is a cat that catches rats, regardless of its colour
-  - It is not the right time for revolution
+  choiceStrings: []
   displayChoiceStrings: []
   renderIndexes: 
   color: <color=#00ffffff>
+--- !u!114 &1889037673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889037670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcac1582d97a1745b37715de9f28d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1889037674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889037670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9337104f4ef0f40afa971907e766b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2115602259
 GameObject:
   m_ObjectHideFlags: 0
