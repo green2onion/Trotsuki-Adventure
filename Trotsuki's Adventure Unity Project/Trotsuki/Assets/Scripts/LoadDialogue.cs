@@ -5,10 +5,26 @@ using UnityEngine;
 public class LoadDialogue : MonoBehaviour
 {
 	private TextAsset dialogueData;
-	private string[] dialogues;
+	private string[] dialogues; // the entire csv file
 	public List<Dialogue> dialogueList; // this stores all the dialogues
-	// Use this for initialization
-	private void Awake()
+	private TextAsset criteriaData;
+	public List<Criterium> criteriaList;
+	private string[] criterias;
+	private void AddCriterias()
+	{
+		criteriaList = new List<Criterium>();
+		dialogueData = Resources.Load<TextAsset>("Branching Criteria");
+		criterias = dialogueData.text.Split(new char[] { '\n' });// split by row
+
+		for (int i = 1; i<criterias.Length-1;i++)
+		{
+			string[] row = criterias[i].Split(new char[] { ',' });
+			Criterium criterium = new Criterium();
+			int.TryParse(row[0], out criterium.id);
+			int.TryParse(row[1], out criterium.choice);
+		}
+	}
+	private void AddDialogues()
 	{
 		dialogueList = new List<Dialogue>();
 		dialogueData = Resources.Load<TextAsset>("story"); // load the csv
@@ -29,11 +45,14 @@ public class LoadDialogue : MonoBehaviour
 
 			dialogueList.Add(dialogue); // add the dialogue to our list
 		}
+	}
+	private void AddCriterias()
+	{
 
-		//foreach(Dialogue dialogue in dialogueList)
-		//{
-		//	print(dialogue.id + dialogue.texts[]);
-		//}
+	}
+	private void Awake()
+	{
+		AddDialogues();
 	}
 
 	// Update is called once per frame

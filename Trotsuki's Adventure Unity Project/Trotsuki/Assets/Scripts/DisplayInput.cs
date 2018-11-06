@@ -13,7 +13,7 @@ public class DisplayInput : MonoBehaviour
 	{
 		myInput += text;
 	}
-	private string UpdateString()
+	/*private string UpdateString()
 	{
 		string displayText = myInput;
 		
@@ -24,7 +24,7 @@ public class DisplayInput : MonoBehaviour
 		}
 		print(displayText);
 		return displayText;
-	}
+	}*/
 	public void InputSuccess()
 	{
 		myInput = "";

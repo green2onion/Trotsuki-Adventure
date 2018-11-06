@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Choice
   - MyInput
+  - Opponent
   layers:
   - Default
   - TransparentFX

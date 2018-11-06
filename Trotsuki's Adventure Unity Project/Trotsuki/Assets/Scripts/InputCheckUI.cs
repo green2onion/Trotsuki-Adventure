@@ -21,8 +21,8 @@ public class InputCheckUI : MonoBehaviour
 	private string NormalizeString(string input)
 	{
 		string output = input;
-		output = output.Replace("NEWLINE", "");// remove NEWLINE
-		output = Regex.Replace(output, @"\s", "");// remove spaces
+		//output = output.Replace("NEWLINE", "");// remove NEWLINE
+		output = Regex.Replace(output, @"\r", "");// remove lines
 		output = output.ToLower();
 		return output;
 	}
@@ -31,53 +31,47 @@ public class InputCheckUI : MonoBehaviour
 	{
 		foreach (char inputChar in Input.inputString) // get input charz
 		{
-			if (inputChar!=' ')
+			bool frameChecked = false;
+			char inputCharLower = char.ToLower(inputChar);
+			for (int i = 0; i < choiceStrings.Length; i++) // try every choice
 			{
-				bool frameChecked = false;
-				char inputCharLower = char.ToLower(inputChar);
-				for (int i = 0; i < choiceStrings.Length; i++) // try every choice
+				string normalizedString = NormalizeString(choiceStrings[i]);
+				print(normalizedString);
+				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 				{
-					string normalizedString = NormalizeString(choiceStrings[i]);
-					if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
+					if (!isChoiceSelected)
 					{
-						if (!isChoiceSelected)
-						{
-							myChoice = i;
-							isChoiceSelected = true;
+						myChoice = i;
+						isChoiceSelected = true;
 
-						}
 					}
-					if (i == myChoice)
-					{
-						if (inputCharLower == normalizedString[charPos[i]])
-						{
-							frameChecked = true; // avoid checking more than one time in the for loop
-							currentString[i] = currentString[i] + normalizedString[charPos[i]];
-							inputDisplay.GetComponent<DisplayInput>().ReceiveText(displayChoiceStrings[i][renderIndexes[i]]);
-							if (currentString[i] == normalizedString)
-							{
-								InputSuccess(i);
-							}
-							else
-							{
-								charPos[i]++;
-								renderIndexes[i]++;
-							}
-
-
-						}
-						else if (!frameChecked)
-						{
-							WrongInput(inputCharLower, renderIndexes[i]);
-						}
-					}
-					choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
-					//inputDisplay.GetComponent<DisplayInput>().ReceiveText(ShowInput(i));
-
 				}
-
+				if (i == myChoice)
+				{
+					if (inputCharLower == normalizedString[charPos[i]])
+					{
+						frameChecked = true; // avoid checking more than one time in the for loop
+						currentString[i] = currentString[i] + normalizedString[charPos[i]];
+						print(currentString[i]);
+						inputDisplay.GetComponent<DisplayInput>().ReceiveText(displayChoiceStrings[i][renderIndexes[i]]);
+						if (currentString[i] == normalizedString)
+						{
+							InputSuccess(i);
+						}
+						else
+						{
+							charPos[i]++;
+							renderIndexes[i]++;
+						}
+					}
+					else if (!frameChecked)
+					{
+						WrongInput(inputCharLower, renderIndexes[i]);
+					}
+				}
+				choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
+				//inputDisplay.GetComponent<DisplayInput>().ReceiveText(ShowInput(i));
 			}
-
 		}
 	}
 	private void InputSuccess(int choice)
@@ -93,6 +87,7 @@ public class InputCheckUI : MonoBehaviour
 		isChoiceSelected = false;
 		inputDisplay.GetComponent<DisplayInput>().InputSuccess();
 		print("zuccess!");
+		
 	}
 	private void WrongInput(char input, int place)
 	{
@@ -109,11 +104,11 @@ public class InputCheckUI : MonoBehaviour
 		{
 			renderIndexes[choice]++;
 		}
-		if (output[renderIndexes[choice]] == ' ') //
-		{
-			renderIndexes[choice]++; // add the spaces in the renderIndex
-			inputDisplay.GetComponent<DisplayInput>().ReceiveText(' ');
-		}
+		//if (output[renderIndexes[choice]] == ' ') //
+		//{
+		//	renderIndexes[choice]++; // add the spaces in the renderIndex
+		//	inputDisplay.GetComponent<DisplayInput>().ReceiveText(' ');
+		//}
 		output = output.Insert(renderIndexes[choice], "</color>");
 		output = color + output;
 
@@ -130,7 +125,7 @@ public class InputCheckUI : MonoBehaviour
 	private void Start()
 	{
 		choiceStrings = new string[4];
-		
+
 		choiceObjects = new GameObject[4];
 		renderIndexes = new int[4];
 		charPos = new int[4];
@@ -155,7 +150,6 @@ public class InputCheckUI : MonoBehaviour
 		for (int i = 0; i < 4; i++)
 		{
 			displayChoiceStrings[i] = choiceStrings[i];
-
 		}
 		CheckInput();
 		//print(Input.inputString);
