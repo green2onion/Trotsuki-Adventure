@@ -16,12 +16,26 @@ public class LoadDialogue : MonoBehaviour
 		dialogueData = Resources.Load<TextAsset>("Branching Criteria");
 		criterias = dialogueData.text.Split(new char[] { '\n' });// split by row
 
-		for (int i = 1; i<criterias.Length-1;i++)
+		for (int i = 1; i < criterias.Length - 1; i++)
 		{
+
 			string[] row = criterias[i].Split(new char[] { ',' });
 			Criterium criterium = new Criterium();
 			int.TryParse(row[0], out criterium.id);
 			int.TryParse(row[1], out criterium.choice);
+			int.TryParse(row[2], out criterium.accuracy);
+			bool.TryParse(row[3], out criterium.isOvertime);
+			int.TryParse(row[4], out criterium.relationshipWithKerensuki);
+			int.TryParse(row[5], out criterium.relationshipWithRenin);
+			int.TryParse(row[6], out criterium.relationshipWithSudarin);
+			criteriaList.Add(criterium); // add the criteria to our list
+		}
+		for (int i = 0; i < dialogueList.Count; i++)
+		{
+			for(int j = 0; j<4;j++)
+			{
+				dialogueList[i].SetCriterium(criteriaList[i * 4 + j], j);
+			}
 		}
 	}
 	private void AddDialogues()
@@ -45,10 +59,6 @@ public class LoadDialogue : MonoBehaviour
 
 			dialogueList.Add(dialogue); // add the dialogue to our list
 		}
-	}
-	private void AddCriterias()
-	{
-
 	}
 	private void Awake()
 	{
