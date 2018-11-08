@@ -13,8 +13,9 @@ public class LoadDialogue : MonoBehaviour
 	private void AddCriterias()
 	{
 		criteriaList = new List<Criterium>();
-		dialogueData = Resources.Load<TextAsset>("Branching Criteria");
-		criterias = dialogueData.text.Split(new char[] { '\n' });// split by row
+		criteriaData = Resources.Load<TextAsset>("Branching Criteria");
+		criterias = criteriaData.text.Split(new char[] { '\n' });// split by row
+		print(criterias.ToString());
 
 		for (int i = 1; i < criterias.Length - 1; i++)
 		{
@@ -35,6 +36,8 @@ public class LoadDialogue : MonoBehaviour
 			for(int j = 0; j<4;j++)
 			{
 				dialogueList[i].SetCriterium(criteriaList[i * 4 + j], j);
+				print(dialogueList.Count);
+				print(i * 4 + j);
 			}
 		}
 	}
@@ -63,6 +66,7 @@ public class LoadDialogue : MonoBehaviour
 	private void Awake()
 	{
 		AddDialogues();
+		AddCriterias();
 	}
 
 	// Update is called once per frame

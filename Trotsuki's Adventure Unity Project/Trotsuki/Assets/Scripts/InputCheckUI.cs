@@ -87,6 +87,7 @@ public class InputCheckUI : MonoBehaviour
 		isChoiceSelected = false;
 		inputDisplay.GetComponent<DisplayInput>().InputSuccess();
 		print("zuccess!");
+		gameObject.GetComponent<AdvanceStory>().GoToDialogue(choice);
 		
 	}
 	private void WrongInput(char input, int place)

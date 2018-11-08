@@ -32,6 +32,7 @@ public class AdvanceStory : MonoBehaviour
 	}
 	private bool CheckConditions(int choice) // if the condition is met
 	{
+		
 		if (myProperties.accuracy >= loadDialogue.dialogueList[id].criteria[choice].accuracy)
 		{
 			if (myProperties.isOvertime == loadDialogue.dialogueList[id].criteria[choice].isOvertime)
@@ -48,46 +49,48 @@ public class AdvanceStory : MonoBehaviour
 				}
 			}
 		}
+		
 		return false;
 	}
+	
 	public void GoToDialogue(int choice)
 	{
 		switch (id)
 		{
-			case 0:
+			case 0: // dialogue id
 				switch(choice)
 				{
-					case 1:
+					case 1: // choice
 						if (CheckConditions(choice))
 						{
 							AdvanceDialogue(1);
 						}
 						else
 						{
-							AdvanceDialogue(2);
+							AdvanceDialogue(1);
 						}
 						break;
-					case 2:
+					case 2: // choice
 						if (CheckConditions(choice))
 						{
 							AdvanceDialogue(1);
 						}
 						else
 						{
-							AdvanceDialogue(2);
+							AdvanceDialogue(1);
 						}
 						break;
-					case 3:
+					case 3: // choice
 						if (CheckConditions(choice))
 						{
 							AdvanceDialogue(1);
 						}
 						else
 						{
-							AdvanceDialogue(2);
+							AdvanceDialogue(1);
 						}
 						break;
-					case 4:
+					case 4: // choice
 						if (CheckConditions(choice))
 						{
 							AdvanceDialogue(1);
@@ -108,6 +111,16 @@ public class AdvanceStory : MonoBehaviour
 				break;
 		}
 	}
+	public void AddAndSetProperties(int id, int accuracy, int choice, bool isOvertime, int relationshipWithKerensuki, int relationshipWithRenin, int relationshipWithSudarin)
+	{
+		myProperties.id = id;
+		myProperties.accuracy = accuracy;
+		myProperties.choice = choice;
+		myProperties.isOvertime = isOvertime;
+		myProperties.relationshipWithKerensuki += relationshipWithKerensuki;
+		myProperties.relationshipWithRenin += relationshipWithRenin;
+		myProperties.relationshipWithSudarin += relationshipWithSudarin;
+	}
 	// Use this for initialization
 	private void Start()
 	{
@@ -115,8 +128,16 @@ public class AdvanceStory : MonoBehaviour
 		loadDialogue = gameObject.GetComponent<LoadDialogue>();
 		opponent = GameObject.FindGameObjectWithTag("Opponent").GetComponent<Text>();
 		//criterias = new Criteria[loadDialogue.dialogueList.Count][];
-		myProperties = new Criterium();
+
 		id = 0;
+		myProperties = new Criterium();
+		myProperties.id = id;
+		myProperties.accuracy = 0;
+		myProperties.choice = 0;
+		myProperties.isOvertime = false;
+		myProperties.relationshipWithKerensuki = 0;
+		myProperties.relationshipWithRenin = 50;
+		myProperties.relationshipWithSudarin = 0;
 		AdvanceDialogue(id);
 	}
 
