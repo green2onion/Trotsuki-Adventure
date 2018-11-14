@@ -60,7 +60,7 @@ public class LoadDialogue : MonoBehaviour
 				dialogue.SetDialogueText(row[j], j); // copy the dialogueText from the column into the dialogue instance
 			}
 
-			dialogueList.Add(dialogue); // add the dialogue to our list
+			dialogueList.Add(dialogue); // add the dialogue to our list, im bad
 		}
 	}
 	private void Awake()
@@ -69,7 +69,7 @@ public class LoadDialogue : MonoBehaviour
 		AddCriterias();
 	}
 
-	// Update is called once per frame
+	// Update is called once per frame, stil bad
 	private void Update()
 	{
 

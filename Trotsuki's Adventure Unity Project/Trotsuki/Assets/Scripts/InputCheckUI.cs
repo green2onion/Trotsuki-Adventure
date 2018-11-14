@@ -8,7 +8,7 @@ public class InputCheckUI : MonoBehaviour
 {
 	public string[] choiceStrings;
 	public string[] displayChoiceStrings;
-	private GameObject[] choiceObjects;
+	public GameObject[] choiceObjects;
 	//private string[] choiceStrings;
 	private int[] charPos; // in normalized string
 	public int[] renderIndexes; // in original string
@@ -88,6 +88,10 @@ public class InputCheckUI : MonoBehaviour
 		inputDisplay.GetComponent<DisplayInput>().InputSuccess();
 		print("zuccess!");
 		gameObject.GetComponent<AdvanceStory>().GoToDialogue(choice);
+		for(int i = 0;i<4;i++)
+		{
+			choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
+		}
 		
 	}
 	private void WrongInput(char input, int place)
@@ -97,7 +101,7 @@ public class InputCheckUI : MonoBehaviour
 		inputDisplay.GetComponent<DisplayInput>().ReceiveText('*');
 	}
 
-	private string ColorizeChoice(int choice)
+	public string ColorizeChoice(int choice)
 	{
 		string output = displayChoiceStrings[choice];
 		output = output.Replace("NEWLINE", "\n");
@@ -105,11 +109,6 @@ public class InputCheckUI : MonoBehaviour
 		{
 			renderIndexes[choice]++;
 		}
-		//if (output[renderIndexes[choice]] == ' ') //
-		//{
-		//	renderIndexes[choice]++; // add the spaces in the renderIndex
-		//	inputDisplay.GetComponent<DisplayInput>().ReceiveText(' ');
-		//}
 		output = output.Insert(renderIndexes[choice], "</color>");
 		output = color + output;
 

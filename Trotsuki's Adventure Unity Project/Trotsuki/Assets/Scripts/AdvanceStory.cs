@@ -26,13 +26,19 @@ public class AdvanceStory : MonoBehaviour
 		for (int i = 0; i < 4; i++)
 		{
 			inputCheckUI.choiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2]; // put the text from dialogueList into the choiceStrings in InputCheckUI
+			inputCheckUI.displayChoiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2];
+
+			inputCheckUI.choiceObjects[i].GetComponent<Text>().text = inputCheckUI.ColorizeChoice(i);
+
+			opponent.text = loadDialogue.dialogueList[id].texts[1];
+
 		}
-		opponent.text = loadDialogue.dialogueList[id].texts[1];
 		this.id = id;
+
 	}
 	private bool CheckConditions(int choice) // if the condition is met
 	{
-		
+
 		if (myProperties.accuracy >= loadDialogue.dialogueList[id].criteria[choice].accuracy)
 		{
 			if (myProperties.isOvertime == loadDialogue.dialogueList[id].criteria[choice].isOvertime)
@@ -49,16 +55,16 @@ public class AdvanceStory : MonoBehaviour
 				}
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public void GoToDialogue(int choice)
 	{
 		switch (id)
 		{
 			case 0: // dialogue id
-				switch(choice)
+				switch (choice)
 				{
 					case 1: // choice
 						if (CheckConditions(choice))
@@ -105,7 +111,7 @@ public class AdvanceStory : MonoBehaviour
 						break;
 				}
 				break;
-				
+
 			default:
 				print("GoToDialogue is not working");
 				break;
