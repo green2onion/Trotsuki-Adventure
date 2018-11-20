@@ -39,7 +39,7 @@ public class InputCheckUI : MonoBehaviour
 				print(normalizedString);
 				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 				{
-					if (!isChoiceSelected)
+					if (!isChoiceSelected) 
 					{
 						myChoice = i;
 						isChoiceSelected = true;

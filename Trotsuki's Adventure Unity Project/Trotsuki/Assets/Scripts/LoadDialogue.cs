@@ -15,7 +15,7 @@ public class LoadDialogue : MonoBehaviour
 		criteriaList = new List<Criterium>();
 		criteriaData = Resources.Load<TextAsset>("Branching Criteria");
 		criterias = criteriaData.text.Split(new char[] { '\n' });// split by row
-		print(criterias.ToString());
+		//print(criterias.ToString());
 
 		for (int i = 1; i < criterias.Length - 1; i++)
 		{
@@ -36,8 +36,8 @@ public class LoadDialogue : MonoBehaviour
 			for(int j = 0; j<4;j++)
 			{
 				dialogueList[i].SetCriterium(criteriaList[i * 4 + j], j);
-				print(dialogueList.Count);
-				print(i * 4 + j);
+				//print(dialogueList.Count);
+				//print(i * 4 + j);
 			}
 		}
 	}

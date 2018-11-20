@@ -5,17 +5,6 @@ using UnityEngine.UI;
 
 public class AdvanceStory : MonoBehaviour
 {
-	/*
-	public struct Criteria
-	{
-		public double accuracy; // every right type + 100, every wrong type - 100, player score/best possible score = accuracy
-		public bool overtime; // bool overtime or not
-		public int relationshipWithKerensuki; // from -100 to 100, starts from 0
-		public int relationshipWithRenin; // from -100 to 100, starts from 0
-		public int relationshipWithSudarin; // from -100 to 100, starts from 0
-	}
-	public Criteria[][] criterias;
-	*/
 	private Criterium myProperties;
 	private InputCheckUI inputCheckUI;
 	private LoadDialogue loadDialogue;
@@ -58,60 +47,65 @@ public class AdvanceStory : MonoBehaviour
 
 		return false;
 	}
-
+	private void SwitchOnChoice(int choice, int choice1True, int choice1False,int choice2True,int choice2False,int choice3True,int choice3False,int choice4True,int choice4False)
+	{
+		switch(choice)
+		{
+			case 1:
+				if(CheckConditions(choice))
+				{
+					AdvanceDialogue(choice1True);
+				}
+				else
+				{
+					AdvanceDialogue(choice1False);
+				}
+				break;
+			case 2: 
+				if(CheckConditions(choice))
+				{
+					AdvanceDialogue(choice2True);
+				}
+				else
+				{
+					AdvanceDialogue(choice2False);
+				}
+				break;
+			case 3:
+				if(CheckConditions(choice))
+				{
+					AdvanceDialogue(choice3True);
+				}
+				else
+				{
+					AdvanceDialogue(choice3False);
+				}
+				break;
+			case 4: 
+				if(CheckConditions(choice))
+				{
+					AdvanceDialogue(choice4True);
+				}
+				else
+				{
+					AdvanceDialogue(choice4False);
+				}
+				break;
+			default:
+				print("SwitchOnChoice is not working");
+				break;
+		}
+	}
 	public void GoToDialogue(int choice)
 	{
 		switch (id)
 		{
 			case 0: // dialogue id
-				switch (choice)
-				{
-					case 1: // choice
-						if (CheckConditions(choice))
-						{
-							AdvanceDialogue(1);
-						}
-						else
-						{
-							AdvanceDialogue(1);
-						}
-						break;
-					case 2: // choice
-						if (CheckConditions(choice))
-						{
-							AdvanceDialogue(1);
-						}
-						else
-						{
-							AdvanceDialogue(1);
-						}
-						break;
-					case 3: // choice
-						if (CheckConditions(choice))
-						{
-							AdvanceDialogue(1);
-						}
-						else
-						{
-							AdvanceDialogue(1);
-						}
-						break;
-					case 4: // choice
-						if (CheckConditions(choice))
-						{
-							AdvanceDialogue(1);
-						}
-						else
-						{
-							AdvanceDialogue(2);
-						}
-						break;
-					default:
-						print("GoToDialogue is not working");
-						break;
-				}
+				SwitchOnChoice(choice, 1, 1, 1, 2, 2, 3, 3, 4);
 				break;
-
+			case 1:
+				SwitchOnChoice(choice, 2, 2, 2, 3, 3, 3, 4, 4);
+				break;
 			default:
 				print("GoToDialogue is not working");
 				break;
@@ -136,14 +130,16 @@ public class AdvanceStory : MonoBehaviour
 		//criterias = new Criteria[loadDialogue.dialogueList.Count][];
 
 		id = 0;
-		myProperties = new Criterium();
-		myProperties.id = id;
-		myProperties.accuracy = 0;
-		myProperties.choice = 0;
-		myProperties.isOvertime = false;
-		myProperties.relationshipWithKerensuki = 0;
-		myProperties.relationshipWithRenin = 50;
-		myProperties.relationshipWithSudarin = 0;
+		myProperties = new Criterium
+		{
+			id = id,
+			accuracy = 0,
+			choice = 0,
+			isOvertime = false,
+			relationshipWithKerensuki = 0,
+			relationshipWithRenin = 50,
+			relationshipWithSudarin = 0
+		};
 		AdvanceDialogue(id);
 	}
 
