@@ -12,6 +12,7 @@ public class AdvanceStory : MonoBehaviour
 	private int id;
 	private void AdvanceDialogue(int id)
 	{
+		print(loadDialogue.dialogueList[id]);
 		for (int i = 0; i < 4; i++)
 		{
 			inputCheckUI.choiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2]; // put the text from dialogueList into the choiceStrings in InputCheckUI
@@ -47,12 +48,12 @@ public class AdvanceStory : MonoBehaviour
 
 		return false;
 	}
-	private void SwitchOnChoice(int choice, int choice1True, int choice1False,int choice2True,int choice2False,int choice3True,int choice3False,int choice4True,int choice4False)
+	private void SwitchOnChoice(int choice, int choice1True, int choice1False, int choice2True, int choice2False, int choice3True, int choice3False, int choice4True, int choice4False)
 	{
-		switch(choice)
+		switch (choice)
 		{
-			case 1:
-				if(CheckConditions(choice))
+			case 0:
+				if (CheckConditions(choice))
 				{
 					AdvanceDialogue(choice1True);
 				}
@@ -61,8 +62,8 @@ public class AdvanceStory : MonoBehaviour
 					AdvanceDialogue(choice1False);
 				}
 				break;
-			case 2: 
-				if(CheckConditions(choice))
+			case 1:
+				if (CheckConditions(choice))
 				{
 					AdvanceDialogue(choice2True);
 				}
@@ -71,8 +72,8 @@ public class AdvanceStory : MonoBehaviour
 					AdvanceDialogue(choice2False);
 				}
 				break;
-			case 3:
-				if(CheckConditions(choice))
+			case 2:
+				if (CheckConditions(choice))
 				{
 					AdvanceDialogue(choice3True);
 				}
@@ -81,8 +82,8 @@ public class AdvanceStory : MonoBehaviour
 					AdvanceDialogue(choice3False);
 				}
 				break;
-			case 4: 
-				if(CheckConditions(choice))
+			case 3:
+				if (CheckConditions(choice))
 				{
 					AdvanceDialogue(choice4True);
 				}
@@ -98,18 +99,7 @@ public class AdvanceStory : MonoBehaviour
 	}
 	public void GoToDialogue(int choice)
 	{
-		switch (id)
-		{
-			case 0: // dialogue id
-				SwitchOnChoice(choice, 1, 1, 1, 2, 2, 3, 3, 4);
-				break;
-			case 1:
-				SwitchOnChoice(choice, 2, 2, 2, 3, 3, 3, 4, 4);
-				break;
-			default:
-				print("GoToDialogue is not working");
-				break;
-		}
+		SwitchOnChoice(choice, loadDialogue.branchList[id].nextLine[1], loadDialogue.branchList[id].nextLine[2], loadDialogue.branchList[id].nextLine[3], loadDialogue.branchList[id].nextLine[4], loadDialogue.branchList[id].nextLine[5], loadDialogue.branchList[id].nextLine[6], loadDialogue.branchList[id].nextLine[7], loadDialogue.branchList[id].nextLine[8]);
 	}
 	public void AddAndSetProperties(int id, int accuracy, int choice, bool isOvertime, int relationshipWithKerensuki, int relationshipWithRenin, int relationshipWithSudarin)
 	{
@@ -129,7 +119,7 @@ public class AdvanceStory : MonoBehaviour
 		opponent = GameObject.FindGameObjectWithTag("Opponent").GetComponent<Text>();
 		//criterias = new Criteria[loadDialogue.dialogueList.Count][];
 
-		id = 0;
+		id = 1;
 		myProperties = new Criterium
 		{
 			id = id,

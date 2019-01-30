@@ -36,7 +36,7 @@ public class InputCheckUI : MonoBehaviour
 			for (int i = 0; i < choiceStrings.Length; i++) // try every choice
 			{
 				string normalizedString = NormalizeString(choiceStrings[i]);
-				print(normalizedString);
+				//print(normalizedString);
 				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 				{
 					if (!isChoiceSelected) 
@@ -52,7 +52,7 @@ public class InputCheckUI : MonoBehaviour
 					{
 						frameChecked = true; // avoid checking more than one time in the for loop
 						currentString[i] = currentString[i] + normalizedString[charPos[i]];
-						print(currentString[i]);
+						//print(currentString[i]);
 						inputDisplay.GetComponent<DisplayInput>().ReceiveText(displayChoiceStrings[i][renderIndexes[i]]);
 						if (currentString[i] == normalizedString)
 						{
@@ -86,7 +86,7 @@ public class InputCheckUI : MonoBehaviour
 		}
 		isChoiceSelected = false;
 		inputDisplay.GetComponent<DisplayInput>().InputSuccess();
-		print("zuccess!");
+		//print("zuccess!");
 		gameObject.GetComponent<AdvanceStory>().GoToDialogue(choice);
 		for(int i = 0;i<4;i++)
 		{
