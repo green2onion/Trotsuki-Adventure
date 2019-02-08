@@ -17,6 +17,8 @@ public class InputCheckUI : MonoBehaviour
 	private bool isChoiceSelected;
 	private int myChoice;
 	private GameObject inputDisplay;
+	private int wrongInputs;
+	private int choiceLength;
 
 	private string NormalizeString(string input)
 	{
@@ -36,12 +38,12 @@ public class InputCheckUI : MonoBehaviour
 			for (int i = 0; i < choiceStrings.Length; i++) // try every choice
 			{
 				string normalizedString = NormalizeString(choiceStrings[i]);
-				//print(normalizedString);
 				if (inputCharLower == normalizedString[charPos[i]]) // check if the input char == the char at charPos
 				{
-					if (!isChoiceSelected) 
+					if (!isChoiceSelected)
 					{
 						myChoice = i;
+						choiceLength = displayChoiceStrings[myChoice].Length;
 						isChoiceSelected = true;
 
 					}
@@ -52,7 +54,6 @@ public class InputCheckUI : MonoBehaviour
 					{
 						frameChecked = true; // avoid checking more than one time in the for loop
 						currentString[i] = currentString[i] + normalizedString[charPos[i]];
-						//print(currentString[i]);
 						inputDisplay.GetComponent<DisplayInput>().ReceiveText(displayChoiceStrings[i][renderIndexes[i]]);
 						if (currentString[i] == normalizedString)
 						{
@@ -64,13 +65,12 @@ public class InputCheckUI : MonoBehaviour
 							renderIndexes[i]++;
 						}
 					}
-					else if (!frameChecked)
+					else if (!frameChecked && inputCharLower!='\b')
 					{
 						WrongInput(inputCharLower, renderIndexes[i]);
 					}
 				}
 				choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
-				//inputDisplay.GetComponent<DisplayInput>().ReceiveText(ShowInput(i));
 			}
 		}
 	}
@@ -85,20 +85,21 @@ public class InputCheckUI : MonoBehaviour
 			choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
 		}
 		isChoiceSelected = false;
+	
 		inputDisplay.GetComponent<DisplayInput>().InputSuccess();
-		//print("zuccess!");
+		gameObject.GetComponent<AdvanceStory>().SetAccuracy(GetAccuracy());
 		gameObject.GetComponent<AdvanceStory>().GoToDialogue(choice);
-		for(int i = 0;i<4;i++)
+		wrongInputs = 0;
+		choiceLength = 0;
+		for (int i = 0; i < 4; i++)
 		{
 			choiceObjects[i].GetComponent<Text>().text = ColorizeChoice(i);
 		}
-		
 	}
 	private void WrongInput(char input, int place)
 	{
-		//print("wrong input!" + input + "at " + place);
-		//inputDisplay.GetComponent<DisplayInput>().wrongInputsIndexes.Add(place);
 		inputDisplay.GetComponent<DisplayInput>().ReceiveText('*');
+		wrongInputs++;
 	}
 
 	public string ColorizeChoice(int choice)
@@ -121,6 +122,14 @@ public class InputCheckUI : MonoBehaviour
 		output = output.Substring(0, renderIndexes[choice]);
 		return output;
 	}
+
+	public double GetAccuracy()
+	{
+		double accuracy;
+		accuracy = wrongInputs / choiceLength;
+		return accuracy;
+	}
+
 	// Use this for initialization
 	private void Start()
 	{
@@ -131,10 +140,11 @@ public class InputCheckUI : MonoBehaviour
 		charPos = new int[4];
 		currentString = new string[4];
 		displayChoiceStrings = new string[4];
+		wrongInputs = 0;
+		choiceLength = 0;
 		for (int i = 0; i < 4; i++)
 		{
 			choiceObjects[i] = GameObject.FindGameObjectsWithTag("Choice")[i];
-			//choiceStrings[i] = choiceStrings[i];
 			renderIndexes[i] = 0;
 			charPos[i] = 0;
 			currentString[i] = "";
@@ -142,6 +152,7 @@ public class InputCheckUI : MonoBehaviour
 			displayChoiceStrings[i] = choiceStrings[i];
 		}
 		inputDisplay = GameObject.FindGameObjectWithTag("MyInput");
+		//accuracy = gameObject.GetComponent<Accuracy>();
 	}
 
 	// Update is called once per frame
@@ -152,6 +163,5 @@ public class InputCheckUI : MonoBehaviour
 			displayChoiceStrings[i] = choiceStrings[i];
 		}
 		CheckInput();
-		//print(Input.inputString);
 	}
 }

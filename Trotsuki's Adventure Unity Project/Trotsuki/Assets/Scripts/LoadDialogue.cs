@@ -22,7 +22,7 @@ public class LoadDialogue : MonoBehaviour
 		criteriaList = new List<Criterium>();
 		criteriaData = Resources.Load<TextAsset>("Branching Criteria");
 		criterias = criteriaData.text.Split(new char[] { '\n' });// split by row
-		
+
 		for (int i = 1; i < criterias.Length - 1; i++)
 		{
 
@@ -41,9 +41,7 @@ public class LoadDialogue : MonoBehaviour
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				dialogueList[i].SetCriterium(criteriaList[(i-1) * 4 + j], j);
-				//print(dialogueList.Count);
-				//print(i * 4 + j);
+				dialogueList[i].SetCriterium(criteriaList[(i - 1) * 4 + j], j);
 			}
 		}
 	}
@@ -63,10 +61,22 @@ public class LoadDialogue : MonoBehaviour
 
 			for (int j = 1; j < row.Length; j++)
 			{
-				dialogue.SetDialogueText(row[j], j); // copy the dialogueText from the column into the dialogue instance
+
+				if (j < row.Length - 2) // texts
+				{
+					dialogue.SetDialogueText(row[j], j); // copy the dialogueText from the column into the dialogue instance
+				}
+				if (j == row.Length - 2) // speaker
+				{
+					dialogue.speaker = row[j];
+				}
+				if (j == row.Length - 1) // time limit
+				{
+					double.TryParse(row[j], out dialogue.timeLimit);
+				}
 			}
 
-			dialogueList.Add(dialogue); // add the dialogue to our list, im bad
+			dialogueList.Add(dialogue); // add the dialogue to our list
 		}
 	}
 	private void AddBranches()

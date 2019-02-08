@@ -3,7 +3,8 @@
 	public int id;
 	public string[] texts = new string[6];
 	public Criterium[] criteria = new Criterium[4];
-
+	public double timeLimit;
+	public string speaker;
 	public void SetDialogueText(string dialogueText, int index) // normalize the dialogue, 1 = opponent, 2345 = choices
 	{
 		texts[index] = dialogueText.Replace("COMMA", ",");

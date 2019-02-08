@@ -1,35 +1,51 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AdvanceStory : MonoBehaviour
 {
-	private Criterium myProperties;
+	private Criterium myProperties; // accuracy is actually inaccuracy
 	private InputCheckUI inputCheckUI;
 	private LoadDialogue loadDialogue;
+	private Timer timer;
 	private Text opponent;
 	private int id;
+
+	public double timerDefault;
+
+	public void SetOvertime(bool isOvertime)
+	{
+		myProperties.isOvertime = isOvertime;
+	}
 	private void AdvanceDialogue(int id)
 	{
-		print(loadDialogue.dialogueList[id]);
 		for (int i = 0; i < 4; i++)
 		{
 			inputCheckUI.choiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2]; // put the text from dialogueList into the choiceStrings in InputCheckUI
 			inputCheckUI.displayChoiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2];
-
 			inputCheckUI.choiceObjects[i].GetComponent<Text>().text = inputCheckUI.ColorizeChoice(i);
-
 			opponent.text = loadDialogue.dialogueList[id].texts[1];
-
 		}
 		this.id = id;
+		if (loadDialogue.dialogueList[id].timeLimit == 0.0)
+		{
+
+			timer.StartTimer(timerDefault);
+		}
+		else
+		{
+			timer.StartTimer(loadDialogue.dialogueList[id].timeLimit);
+		}
+		SetOvertime(false);
+		SetAccuracy(0);
 
 	}
 	private bool CheckConditions(int choice) // if the condition is met
 	{
 
-		if (myProperties.accuracy >= loadDialogue.dialogueList[id].criteria[choice].accuracy)
+		if (myProperties.accuracy <= loadDialogue.dialogueList[id].criteria[choice].accuracy)
 		{
 			if (myProperties.isOvertime == loadDialogue.dialogueList[id].criteria[choice].isOvertime)
 			{
@@ -111,11 +127,17 @@ public class AdvanceStory : MonoBehaviour
 		myProperties.relationshipWithRenin += relationshipWithRenin;
 		myProperties.relationshipWithSudarin += relationshipWithSudarin;
 	}
+	public void SetAccuracy(double accuracy) // wrong input percentage without decimals
+	{
+		myProperties.accuracy = (int)accuracy * 100;
+	}
 	// Use this for initialization
 	private void Start()
 	{
 		inputCheckUI = gameObject.GetComponent<InputCheckUI>();
 		loadDialogue = gameObject.GetComponent<LoadDialogue>();
+		timer = gameObject.GetComponent<Timer>();
+		timer.advanceStory = this;
 		opponent = GameObject.FindGameObjectWithTag("Opponent").GetComponent<Text>();
 		//criterias = new Criteria[loadDialogue.dialogueList.Count][];
 
