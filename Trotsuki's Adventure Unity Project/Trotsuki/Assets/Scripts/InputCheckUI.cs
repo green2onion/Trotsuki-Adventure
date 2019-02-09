@@ -45,7 +45,7 @@ public class InputCheckUI : MonoBehaviour
 						myChoice = i;
 						choiceLength = displayChoiceStrings[myChoice].Length;
 						isChoiceSelected = true;
-
+						gameObject.GetComponent<Timer>().SetTimerOn(true);
 					}
 				}
 				if (i == myChoice)
@@ -58,6 +58,7 @@ public class InputCheckUI : MonoBehaviour
 						if (currentString[i] == normalizedString)
 						{
 							InputSuccess(i);
+							break;
 						}
 						else
 						{

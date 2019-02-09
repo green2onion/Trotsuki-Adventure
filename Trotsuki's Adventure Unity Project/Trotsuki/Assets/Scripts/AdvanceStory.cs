@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AdvanceStory : MonoBehaviour
@@ -21,6 +22,15 @@ public class AdvanceStory : MonoBehaviour
 	}
 	private void AdvanceDialogue(int id)
 	{
+		if (id == 233)
+		{
+			SceneManager.LoadScene("End");
+		}
+		if (id == 234)
+		{
+			SceneManager.LoadScene("Stroke");
+		}
+
 		for (int i = 0; i < 4; i++)
 		{
 			inputCheckUI.choiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2]; // put the text from dialogueList into the choiceStrings in InputCheckUI
@@ -40,7 +50,7 @@ public class AdvanceStory : MonoBehaviour
 		}
 		SetOvertime(false);
 		SetAccuracy(0);
-
+		timer.SetTimerOn(false);
 	}
 	private bool CheckConditions(int choice) // if the condition is met
 	{

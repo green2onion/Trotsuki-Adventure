@@ -9,12 +9,18 @@ public class Timer : MonoBehaviour
 	private double tempTimer;
 	public Slider timerSlider;
 	public AdvanceStory advanceStory;
+	private bool isOn;
 
+	public void SetTimerOn(bool isOn)
+	{
+		this.isOn = isOn;
+	}
 	public void StartTimer(double timer)
 	{
 		print("StartTimer is triggered");
 		this.timer = timer;
 		tempTimer = this.timer;
+		timerSlider.value = (float)(tempTimer / timer);
 		advanceStory.SetOvertime(false);
 	}
 	private void CountDown()
@@ -42,7 +48,9 @@ public class Timer : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		CountDown();
-
+		if (isOn)
+		{
+			CountDown();
+		}
 	}
 }
