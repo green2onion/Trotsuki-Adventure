@@ -10,6 +10,7 @@ public class ButtonFunctions : MonoBehaviour
 	public GameObject choicesManager;
 	public void OpenMainMenu()
 	{
+		Time.timeScale = 1;
 		SceneManager.LoadScene("Main Menu");
 	}
 	public void RunGame()
@@ -25,6 +26,10 @@ public class ButtonFunctions : MonoBehaviour
 		Time.timeScale = 1;
 		choicesManager.SetActive(true);
 		pauseMenu.gameObject.SetActive(false);
+	}
+	public void Tutorial()
+	{
+		SceneManager.LoadScene("Tutorial");
 	}
 	public void PauseGame()
 	{
