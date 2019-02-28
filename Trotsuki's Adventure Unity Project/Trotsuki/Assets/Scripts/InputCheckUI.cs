@@ -17,7 +17,7 @@ public class InputCheckUI : MonoBehaviour
 	private bool isChoiceSelected;
 	private int myChoice;
 	private GameObject inputDisplay;
-	private int wrongInputs;
+	private double wrongInputs;
 	private int choiceLength;
 
 	private string NormalizeString(string input)

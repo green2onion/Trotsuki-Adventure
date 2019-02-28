@@ -139,7 +139,7 @@ public class AdvanceStory : MonoBehaviour
 	}
 	public void SetAccuracy(double accuracy) // wrong input percentage without decimals
 	{
-		myProperties.accuracy = (int)accuracy * 100;
+		myProperties.accuracy = (int)(accuracy * 100);
 	}
 	// Use this for initialization
 	private void Start()
