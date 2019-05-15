@@ -12,9 +12,13 @@ public class AdvanceStory : MonoBehaviour
 	private LoadDialogue loadDialogue;
 	private Timer timer;
 	private Text opponent;
-	private int id;
-
+	private Image speakerImage;
+	public int id { get; private set; }
 	public double timerDefault;
+	public Sprite[] speakers;
+	public IDictionary<string, Sprite> speakerDictionary;
+	public AudioSource audioSource;
+	public AudioClip[] audioClips;
 
 	public void SetOvertime(bool isOvertime)
 	{
@@ -22,13 +26,42 @@ public class AdvanceStory : MonoBehaviour
 	}
 	private void AdvanceDialogue(int id)
 	{
-		if (id == 233)
+		//if (id == 233)
+		//{
+		//	SceneManager.LoadScene("End");
+		//}
+		//if (id == 234)
+		//{
+		//	SceneManager.LoadScene("Stroke");
+		//}
+		if (id == 254 || id == 255)
 		{
-			SceneManager.LoadScene("End");
+			if (audioSource.clip != audioClips[1])
+			{
+				audioSource.clip = audioClips[1]; // alarm sound
+				audioSource.loop = false;
+				audioSource.Play();
+			}
+
 		}
-		if (id == 234)
+		else if (id >= 256 && id <= 308)
 		{
-			SceneManager.LoadScene("Stroke");
+			if (audioSource.clip != audioClips[2])
+			{
+				audioSource.clip = audioClips[2]; // showtime
+				audioSource.loop = true;
+				audioSource.Play();
+			}
+
+		}
+		else
+		{
+			if (audioSource.clip != audioClips[0])
+			{
+				audioSource.clip = audioClips[0]; // default
+				audioSource.loop = true;
+				audioSource.Play();
+			}
 		}
 
 		for (int i = 0; i < 4; i++)
@@ -37,6 +70,7 @@ public class AdvanceStory : MonoBehaviour
 			inputCheckUI.displayChoiceStrings[i] = loadDialogue.dialogueList[id].texts[i + 2];
 			inputCheckUI.choiceObjects[i].GetComponent<Text>().text = inputCheckUI.ColorizeChoice(i);
 			opponent.text = loadDialogue.dialogueList[id].texts[1];
+			speakerImage.sprite = speakerDictionary[loadDialogue.dialogueList[id].speaker];
 		}
 		this.id = id;
 		if (loadDialogue.dialogueList[id].timeLimit == 0.0)
@@ -149,6 +183,16 @@ public class AdvanceStory : MonoBehaviour
 		timer = gameObject.GetComponent<Timer>();
 		timer.advanceStory = this;
 		opponent = GameObject.FindGameObjectWithTag("Opponent").GetComponent<Text>();
+		speakerImage = GameObject.FindGameObjectWithTag("Speaker").GetComponent<Image>();
+		speakerDictionary = new Dictionary<string, Sprite>()
+		{
+			{"Narrator",speakers[0]},
+			{"Kerensuki",speakers[1]},
+			{"Renin",speakers[2]},
+			{"Sudarin",speakers[3]},
+			{"Shadow Sudarin",speakers[4]},
+			{"Stepnya",speakers[5]}
+		};
 		//criterias = new Criteria[loadDialogue.dialogueList.Count][];
 
 		id = 1;

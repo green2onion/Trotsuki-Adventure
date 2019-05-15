@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
 	}
 	public void StartTimer(double timer)
 	{
-		print("StartTimer is triggered");
+		//print("StartTimer is triggered");
 		this.timer = timer;
 		tempTimer = this.timer;
 		timerSlider.value = (float)(tempTimer / timer);
@@ -39,6 +39,10 @@ public class Timer : MonoBehaviour
 	{
 		advanceStory.SetOvertime(true);
 	}
+	private bool IsAutoCountdown()
+	{
+		return advanceStory.id >= 258 && advanceStory.id <= 301;
+	}
 	// Use this for initialization
 	private void Start()
 	{
@@ -48,7 +52,7 @@ public class Timer : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		if (isOn)
+		if (isOn || IsAutoCountdown())
 		{
 			CountDown();
 		}

@@ -48,7 +48,7 @@ public class InputCheckUI : MonoBehaviour
 						gameObject.GetComponent<Timer>().SetTimerOn(true);
 					}
 				}
-				if (i == myChoice)
+				if (i == myChoice && isChoiceSelected)
 				{
 					if (inputCharLower == normalizedString[charPos[i]])
 					{

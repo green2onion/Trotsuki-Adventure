@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 542462332}
   m_Layer: 5
   m_Name: Speaker
-  m_TagString: Untagged
+  m_TagString: Speaker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -636,7 +636,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e1d279d8b6c3da147b26070f402b6d3c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a406c21a37feb64e8a15a3945f92dc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2138,6 +2138,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerDefault: 10
+  speakers:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: e1d279d8b6c3da147b26070f402b6d3c, type: 3}
+  - {fileID: 21300000, guid: 9a406c21a37feb64e8a15a3945f92dc3, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  audioSource: {fileID: 1889884165}
+  audioClips:
+  - {fileID: 8300000, guid: c9b52efc73fdf3b4f991bdcac0cf587c, type: 3}
+  - {fileID: 8300000, guid: 56554681f9b8f174bbcb9b7260998fff, type: 3}
+  - {fileID: 8300000, guid: bb4b2171693083c4ca3019a56333b24e, type: 3}
 --- !u!114 &1889037674
 MonoBehaviour:
   m_ObjectHideFlags: 0
