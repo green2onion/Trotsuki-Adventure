@@ -1,1 +1,2 @@
-# Trotsuki Adventure
+# Initial page
+
