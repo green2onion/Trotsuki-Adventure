@@ -34,6 +34,10 @@ public class AdvanceStory : MonoBehaviour
 		//{
 		//	SceneManager.LoadScene("Stroke");
 		//}
+		if (id == 16 && SceneManager.GetActiveScene().name == "Tutorial Scene")
+		{
+			SceneManager.LoadScene("Scene 1");
+		}
 		if (id == 254 || id == 255)
 		{
 			if (audioSource.clip != audioClips[1])

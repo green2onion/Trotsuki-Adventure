@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LoadDialogue : MonoBehaviour
 {
-	private TextAsset dialogueData;
+	public TextAsset dialogueData;
 	private string[] dialogues; // the entire csv file
 	public List<Dialogue> dialogueList; // this stores all the dialogues
 
-	private TextAsset criteriaData;
+	public TextAsset criteriaData;
 	public List<Criterium> criteriaList;
 	private string[] criterias;
 
-	private TextAsset branchData;
+	public TextAsset branchData;
 	private string[] branches;
 	public List<Branch> branchList;
 
@@ -20,7 +20,7 @@ public class LoadDialogue : MonoBehaviour
 	private void AddCriterias()
 	{
 		criteriaList = new List<Criterium>();
-		criteriaData = Resources.Load<TextAsset>("Branching Criteria");
+		//criteriaData = Resources.Load<TextAsset>("Branching Criteria");
 		criterias = criteriaData.text.Split(new char[] { '\n' });// split by row
 
 		for (int i = 1; i < criterias.Length - 1; i++)
@@ -48,7 +48,7 @@ public class LoadDialogue : MonoBehaviour
 	private void AddDialogues()
 	{
 		dialogueList = new List<Dialogue>();
-		dialogueData = Resources.Load<TextAsset>("story"); // load the csv
+		//dialogueData = Resources.Load<TextAsset>("story"); // load the csv
 		dialogues = dialogueData.text.Split(new char[] { '\n' }); // split by row
 		dialogueList.Add(new Dialogue());
 
@@ -82,7 +82,7 @@ public class LoadDialogue : MonoBehaviour
 	private void AddBranches()
 	{
 		branchList = new List<Branch>();
-		branchData = Resources.Load<TextAsset>("branches");
+		//branchData = Resources.Load<TextAsset>("branches");
 		branches = branchData.text.Split(new char[] { '\n' });// split by row
 		branchList.Add(new Branch());
 		for (int i = 1; i < branches.Length - 1; i++)

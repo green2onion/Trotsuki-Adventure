@@ -2300,6 +2300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9337104f4ef0f40afa971907e766b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueData: {fileID: 4900000, guid: 30b52a23e7e4f30438390ab660723a45, type: 3}
+  criteriaData: {fileID: 4900000, guid: 14e22d71753fc6246a6b79ec17711464, type: 3}
+  branchData: {fileID: 4900000, guid: 4988b2ca5744ed442bcf688b0d769e8d, type: 3}
 --- !u!114 &1889037675
 MonoBehaviour:
   m_ObjectHideFlags: 0

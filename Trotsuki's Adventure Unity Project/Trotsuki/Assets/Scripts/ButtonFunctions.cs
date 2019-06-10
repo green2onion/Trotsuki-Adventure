@@ -29,7 +29,7 @@ public class ButtonFunctions : MonoBehaviour
 	}
 	public void Tutorial()
 	{
-		SceneManager.LoadScene("Tutorial");
+		SceneManager.LoadScene("Tutorial Scene");
 	}
 	public void PauseGame()
 	{
